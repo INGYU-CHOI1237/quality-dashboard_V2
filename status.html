@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspection Status</title> <!-- ✨ 제목 변경 -->
+    <link rel="stylesheet" href="styles/common.css?v=1">
+    <link rel="stylesheet" href="styles/status.css?v=1">
+
+    <!-- ✨ D3.js 라이브러리 필수 (데이터 처리용) -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+</head>
+
+<body>
+    <header class="main-header">
+        <img src="mersen_logo.png" alt="Mersen Logo" class="header-logo">
+        <h1>Inspection Status</h1> <!-- ✨ 메인 제목 변경 -->
+
+        <div class="header-menu">
+            <span class="menu-toggle">Menu ▼</span>
+            <div class="menu-content">
+                <a href="index.html">Quality Dashboard</a>
+                <a href="inkyu.html">Inkyu Choi</a>
+                <a href="#" style="background-color: #eee; cursor: default;">Inspection Status</a> <!-- ✨ 메뉴명 변경 -->
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-body">
+        <div class="category-container full-height">
+            <!-- ✨ 상단 컨트롤 및 요약 영역 -->
+            <div class="status-header-row">
+                <div class="status-controls">
+                    <button id="btn-count" class="btn-mode active">고객별 건수</button>
+                    <button id="btn-qty" class="btn-mode">고객별 수량</button>
+                </div>
+                <div class="status-summary">
+                    <div class="summary-box">총 대기 건수 : <span id="summary-total-count">0</span></div>
+                    <div class="summary-box">총 대기 수량 : <span id="summary-total-qty">0</span></div>
+                </div>
+            </div>
+
+            <!-- ✨ 메인 콘텐츠 영역 (좌: 버블 차트 / 우: 리스트) -->
+            <div class="status-content-wrapper">
+                <!-- 왼쪽: 버블 차트 영역 -->
+                <div class="bubble-section">
+                    <div id="bubble-container" class="bubble-container">
+                        <!-- JS로 원(Circle)들이 여기에 생성됩니다 -->
+                    </div>
+                </div>
+
+                <!-- 오른쪽: 리스트 영역 -->
+                <div class="list-section">
+                    <div class="table-header">
+                    </div>
+                    <div class="list-table-wrapper">
+                        <table class="status-list-table">
+                            <thead>
+                                <tr>
+                                    <th>Work Order</th>
+                                    <th>이관일자</th>
+                                    <th>경과일자</th>
+                                </tr>
+                            </thead>
+                            <tbody id="status-list-body">
+                                <!-- JS로 데이터가 여기에 생성됩니다 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/status.js?v=1"></script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+/* === 1. 메인 대시보드 레이아웃 === */
+.content-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.nested-half-card {
+    flex: 1;
+    min-height: 320px;
+}
+
+/* ✨ [추가] sub-section이 높이를 채우도록 하여 정렬 문제 해결 */
+.sub-section {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+.card-row {
+    flex-grow: 1; /* 카드 행도 같이 늘어나도록 설정 */
+}
+
+/* === 2. 차트 제목/크기 === */
+.chart-title {
+    margin-bottom: 1rem;
+}
+.title-blue {
+    color: #4C7080; /* ✨ [수정] 새 파란색 */
+}
+.title-orange {
+    color: #F15A22; /* ✨ [수정] 새 주황색 */
+}
+
+.tall-chart {
+    min-height: 240px;
+}

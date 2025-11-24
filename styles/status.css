@@ -1,0 +1,165 @@
+/* /styles/status.css */
+
+/* 기본 레이아웃 설정 */
+.dashboard-body {
+    padding: 20px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.status-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 버튼 스타일 */
+.btn-mode {
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+/* 1. 고객별 건수 버튼 활성화 색상 (#4C7080) */
+#btn-count.active {
+    background-color: #4C7080;
+    border-color: #4C7080;
+    color: white;
+}
+
+/* 2. 고객별 수량 버튼 활성화 색상 (#F15A22) */
+#btn-qty.active {
+    background-color: #F15A22;
+    border-color: #F15A22;
+    color: white;
+}
+
+/* 요약 박스 스타일 */
+.status-summary {
+    display: flex;
+    gap: 20px;
+}
+
+.summary-box {
+    padding: 10px 20px;
+    background-color: white;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-weight: bold;
+    min-width: 150px;
+    text-align: center;
+}
+
+/* 3. 요약 정보 숫자 색상 지정 */
+#summary-total-count {
+    color: #4C7080;
+    font-weight: bold;
+}
+
+#summary-total-qty {
+    color: #F15A22;
+    font-weight: bold;
+}
+
+/* 콘텐츠 영역 분할 (좌: 버블, 우: 리스트) */
+.status-content-wrapper {
+    display: flex;
+    gap: 20px;
+    height: calc(100vh - 200px);
+    /* 화면 꽉 차게 */
+}
+
+.bubble-section {
+    flex: 1;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.list-section {
+    flex: 0 0 400px;
+    /* 리스트 영역 너비 고정 */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 버블 컨테이너 */
+.bubble-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    height: 100%;
+}
+
+/* 개별 버블 스타일 */
+.bubble {
+    border-radius: 50%;
+    background-color: white;
+    /* JS에서 색상을 동적으로 제어하므로 기본값은 중립적으로 설정 */
+    border: 2px solid #ccc;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 0.8rem;
+    color: inherit;
+    /* 부모 색상 상속 */
+}
+
+/* 리스트 테이블 스타일 */
+.table-header {
+    padding: 15px;
+    background-color: #f1f1f1;
+    border-bottom: 1px solid #ddd;
+    border-radius: 8px 8px 0 0;
+    /* 내용이 없어도 영역 유지를 원하면 height 지정, 아니면 자동 축소 */
+    min-height: 10px;
+}
+
+.list-table-wrapper {
+    overflow-y: auto;
+    flex: 1;
+}
+
+.status-list-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.status-list-table th,
+.status-list-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+.status-list-table th {
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+/* 7일 이상 경과 시 노란색 배경 */
+.status-row-warning {
+    background-color: #fff9c4 !important;
+    /* 연한 노란색 */
+}

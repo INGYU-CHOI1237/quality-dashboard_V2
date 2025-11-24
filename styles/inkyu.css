@@ -1,0 +1,642 @@
+/* =============================================== */
+/* ==== 1. 교육(Training) 테이블 === */
+/* =============================================== */
+.training-table {
+    width: 100%;
+    border-collapse: collapse; /* 테두리 한 줄 */
+    font-size: 0.9rem;
+}
+
+.training-table th, .training-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top; /* 셀 내용을 위로 정렬 */
+}
+
+.training-table th {
+    background-color: #f4f4f4; /* 헤더 배경색 */
+    font-weight: 600;
+}
+
+.training-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* 짝수 행 배경색 */
+}
+
+/* 완료 여부 스타일 */
+.status-complete {
+    color: green;
+    font-weight: bold;
+}
+.status-in-progress {
+    color: #fd7e14; /* 주황색 */
+    font-weight: bold;
+}
+
+/* =============================================== */
+/* ==== 2. 제안 (Proposal) 섹션 스타일 ==== */
+/* =============================================== */
+
+/* '제안' 섹션이 2열이 아닌 전체 너비를 차지하도록 함 */
+.full-width-column {
+    flex: 1; /* grid-row 안에서 1개의 아이템으로 전체 너비 차지 */
+}
+
+/* '제안 추가' 버튼 컨테이너 */
+.proposal-controls {
+    margin-bottom: 1.5rem;
+    text-align: right;
+}
+
+/* 공용 버튼 스타일 */
+.btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.btn-add { background-color: #007bff; color: white; }
+.btn-add:hover { background-color: #0056b3; }
+.btn-delete { background-color: #dc3545; color: white; }
+.btn-delete:hover { background-color: #c82333; }
+.btn-toggle { background-color: #6c757d; color: white; }
+.btn-toggle:hover { background-color: #5a6268; }
+
+/* ✨ '제안 일괄 저장' 버튼 스타일 추가 */
+.btn-save {
+    background-color: #28a745; /* 녹색 */
+    color: white;
+}
+.btn-save:hover {
+    background-color: #218838; /* 더 진한 녹색 */
+}
+
+/* 파일 업로드 버튼 스타일 (input[type=file]을 감싸는 label) */
+.btn-upload {
+    display: inline-block; /* 버튼처럼 보이게 */
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    font-weight: normal;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+}
+.btn-upload:hover { background-color: #e2e2e2; }
+
+
+/* 개별 제안 카드 */
+.proposal-card {
+    background-color: #fdfdfd;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* 제안 카드 헤더 (제안명 + 버튼) */
+.proposal-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background-color: #f4f4f4;
+    border-bottom: 1px solid #ddd;
+    border-radius: 8px 8px 0 0;
+}
+.proposal-header-controls {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+/* '제안명' 가로 배치 그룹 */
+.proposal-title-group-horizontal {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-basis: 50%; /* 그룹의 기본 너비를 50%로 설정 */
+    flex-grow: 1;    /* 공간이 남으면 늘어남 */
+    flex-shrink: 1;  /* 공간이 부족하면 줄어듦 */
+    min-width: 300px; /* 최소 너비 */
+}
+.proposal-title-group-horizontal label {
+    font-weight: bold;
+    font-size: 1.1rem;
+    flex-shrink: 0; /* '제안명' 라벨이 줄어들지 않도록 */
+}
+.proposal-title-group-horizontal input.proposal-title-input {
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%; /* 부모 그룹의 너비를 100% 채움 */
+}
+
+/* 제안 카드 메인 (확장/축소될 영역) */
+.proposal-card-body {
+    padding: 1.5rem;
+}
+
+/* 폼 그룹 (라벨 + 인풋) */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.form-group label {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 0.95rem;
+}
+.form-group input[type="file"] {
+    padding: 0.3rem;
+}
+
+/* '제안자' 폼 그룹 (폭 조절) */
+.form-group-proposer {
+    /* ✨ (Req 2) min/max-width 제거 */
+    width: 120px; /* 고정 폭 */
+}
+input[readonly].input-proposer {
+    width: 100%;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    font-weight: bold;
+    color: #333;
+}
+
+/* '완료여부' + 날짜 묶음 (최소 폭 지정) */
+.form-group-combined {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    align-items: end;
+    min-width: 260px; /* '미완료(목표일)'이 잘리지 않도록 */
+}
+.form-group-combined > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* '예상 절감금액' (원) 표시 */
+.currency-input {
+    display: flex;
+    align-items: center;
+}
+.currency-input input {
+    flex-grow: 1; /* input이 늘어나도록 */
+    text-align: right; /* 숫자 오른쪽 정렬 */
+    padding-right: 0.5rem; /* '원' 글자와 겹치지 않도록 */
+}
+.currency-input .currency-symbol {
+    margin-left: 8px;
+    color: #555;
+    font-weight: bold;
+    flex-shrink: 0; /* '원' 글자가 줄어들지 않도록 */
+}
+
+
+/* ✨ (Req 2) 상단 폼 (그리드 레이아웃 수정) */
+.proposal-main-row {
+    display: grid;
+    /* '제안자' 120px, 나머지는 비율(fr)로 채움 */
+    grid-template-columns: 120px 1.5fr 1.5fr 1.5fr 2.5fr 1.5fr;
+    gap: 1.25rem;
+    align-items: end; /* 폼 요소 하단 정렬 */
+}
+/* ✨ (Req 2) form-group-span-2 삭제 */
+
+@media (max-width: 1200px) {
+    /* 1200px 이하일 때 2열로 변경 */
+    .proposal-main-row { grid-template-columns: 1fr 1fr; }
+    /* '절감금액 산출식'이 2칸 모두 차지하도록 */
+    .form-group.calc-formula { grid-column: span 2; }
+}
+@media (max-width: 768px) {
+    /* 768px 이하일 때 1열로 변경 */
+    .proposal-main-row { grid-template-columns: 1fr; }
+    .form-group.calc-formula { grid-column: auto; }
+}
+
+
+/* 하단 상세 폼 (개선 전/후) */
+.proposal-details-row {
+    border-top: 1px dashed #ccc;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+}
+.details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+@media (max-width: 768px) {
+    .details-grid { grid-template-columns: 1fr; }
+}
+
+/* 텍스트 칸 (가로 조절 방지) */
+.details-column textarea {
+    min-height: 80px;
+    resize: vertical; /* 세로로만 크기 조절 */
+}
+
+/* 개선 전/후 이미지 섹션 레이아웃 */
+.image-section {
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    margin-top: 10px;
+}
+.image-section .label-image-upload {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+.image-upload-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+/* 실제 input[type=file]은 숨김 */
+.image-upload-controls input[type="file"].image-upload {
+    display: none;
+}
+/* 이미지 삭제 버튼 */
+.btn-delete-image {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    font-weight: normal;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.btn-delete-image:hover { background-color: #c82333; }
+
+/* ✨ (Req 3) 사진 미리보기 크기 수정 */
+.image-preview {
+    width: 100%;
+    max-height: none; /* 450px에서 none으로 변경 */
+    object-fit: contain;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 0.75rem;
+}
+
+
+/* =============================================== */
+/* ==== 3. Gantt 차트 섹션 스타일 ==== */
+/* =============================================== */
+
+/* --- 1. 차트 헤더 & 범례 --- */
+.gantt-section-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end; /* 버튼을 오른쪽으로 */
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    /* border-bottom은 JS의 차트 헤더로 이동 */
+}
+.gantt-legend {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9rem;
+}
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.legend-color {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    border: 1px solid rgba(0,0,0,0.2);
+}
+
+/* --- 2. 차트 그리드 스타일 (Tailwind가 대부분 처리) --- */
+.gantt-chart-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb; /* wrapper에 테두리 추가 */
+    border-radius: 8px;
+}
+.gantt-grid {
+    display: grid; /* JS에서 grid-template-columns 설정 */
+}
+.gantt-grid-cell {
+    border-right: 1px solid #e5e7eb;
+    border-top: 1px solid #e5e7eb; /* 행(Row) 구분선을 top으로 변경 */
+    height: 100%;
+}
+.gantt-sticky-col {
+    position: sticky;
+    left: 0;
+    background-color: #ffffff;
+    z-index: 10;
+}
+.gantt-header-cell {
+    position: sticky;
+    top: 0;
+    background-color: #f9fafb;
+    z-index: 20;
+    text-align: center;
+    font-weight: 600;
+    padding: 0.75rem 0.5rem;
+    border-right: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb; /* 헤더 하단선 */
+}
+.gantt-header-cell.gantt-sticky-col {
+    z-index: 30;
+    border-right: 1px solid #e5e7eb;
+}
+
+/* --- 3. 차트 바 스타일 (게이지) --- */
+.gantt-bar-container {
+    position: relative;
+    width: 100%;
+    height: 2.5rem;
+    padding: 4px;
+}
+.gantt-bar-outline {
+    position: absolute;
+    left: 4px; right: 4px; top: 4px; bottom: 4px;
+    border: 2px solid; /* JS에서 'borderColor' 설정 */
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #ffffff;
+    overflow: hidden;
+}
+.gantt-bar-fill {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    background-color: transparent; /* JS가 덮어쓸 임시값 */
+    border-radius: 3px;
+    /* z-index: -1; (삭제됨) */
+}
+
+/* --- 4. Gantt 프로젝트명 클릭 (새 팝업용) --- */
+.gantt-project-name-clickable {
+    cursor: pointer;
+}
+.gantt-project-name-clickable .font-semibold:hover {
+    color: #2563eb; /* blue-600 */
+    text-decoration: underline;
+}
+
+/* --- 5. "수정" 모달 폼 스타일 --- */
+.gantt-modal-content {
+    width: 90%; max-width: 800px; max-height: 80vh;
+    display: flex; flex-direction: column;
+}
+.gantt-form-container {
+    overflow-y: auto; text-align: left;
+    padding: 1rem;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    background-color: #f9f9f9;
+}
+.gantt-modal-controls {
+    padding-top: 1.5rem;
+}
+.gantt-edit-item {
+    border: 1px solid #ddd; border-radius: 8px;
+    padding: 1rem; margin-bottom: 1rem;
+    background-color: #fff; position: relative;
+}
+.gantt-edit-item h4 {
+    margin: 0 0 1rem 0; font-size: 1.1rem;
+    font-weight: bold; color: #007bff;
+}
+.gantt-edit-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+}
+.gantt-form-group {
+    display: flex; flex-direction: column; gap: 0.3rem;
+}
+.gantt-form-group label {
+    font-size: 0.85rem; font-weight: 600; color: #333;
+}
+.gantt-form-group input,
+.gantt-form-group select {
+    width: 100%; padding: 0.5rem;
+    border: 1px solid #ccc; border-radius: 4px;
+    font-size: 0.9rem;
+}
+.gantt-delete-project-btn {
+    position: absolute; top: 0.75rem; right: 0.75rem;
+    background: #dc3545; color: white; border: none;
+    border-radius: 50%; width: 28px; height: 28px;
+    font-size: 1rem; font-weight: bold; cursor: pointer;
+    line-height: 28px; text-align: center;
+}
+.gantt-delete-project-btn:hover { background: #c82333; }
+.gantt-currency-input {
+    position: relative; display: flex; align-items: center;
+}
+.gantt-currency-input .currency-symbol-modal {
+    position: absolute; left: 10px; top: 50%;
+    transform: translateY(-50%);
+    color: #555; font-weight: 600;
+    pointer-events: none;
+}
+.gantt-currency-input input {
+    padding-left: 2.5rem;
+    text-align: right; 
+    padding-right: 0.5rem;
+}
+.gantt-form-controls {
+    padding-bottom: 1rem; margin-bottom: 1rem;
+    text-align: right;
+    border-bottom: 1px dashed #ccc;
+}
+
+/* --- 6. 모달 내 진행상황 편집기 --- */
+.gantt-steps-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed #ccc;
+}
+.gantt-progress-steps-editor {
+    margin-top: 1rem;
+}
+.gantt-step-item {
+    background: #fdfdfd;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 1rem;
+    padding-right: 40px; /* 삭제 버튼 공간 */
+    margin-bottom: 0.75rem;
+    position: relative;
+}
+/* ✨ (Req 5) 3열 그리드로 수정 */
+.gantt-step-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1.5fr; /* 날짜, 내용, 현재상태 */
+    gap: 0.75rem;
+}
+.btn-add-step {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #007bff;
+    background: none;
+    border: 1px dashed #007bff;
+    border-radius: 5px;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+}
+.btn-add-step:hover {
+    background: #f0f8ff;
+}
+.gantt-step-delete-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    color: #dc3545;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 5px;
+    line-height: 1;
+}
+.gantt-step-delete-btn:hover {
+    color: #c82333;
+}
+
+
+/* =============================================== */
+/* ==== 7. Gantt 차트 "진행상황" 모달 스타일 ==== */
+/* =============================================== */
+
+.gantt-details-modal-content {
+    width: 90%;
+    max-width: 700px; /* 배송조회 팝업 너비 */
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- 7.1. 상단 단계 (Step) --- */
+.gantt-steps-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #eee;
+    overflow-x: auto; /* 단계가 많아지면 가로 스크롤 */
+}
+.gantt-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex-shrink: 0; /* 줄어들지 않음 */
+    min-width: 80px; /* 최소 너비 */
+}
+.gantt-step-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f0f0f0; /* 비활성 */
+    border: 3px solid #e0e0e0;
+    color: #aaa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.gantt-step-label {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+/* 활성 단계 스타일 */
+.gantt-step.is-active .gantt-step-icon {
+    background-color: #28a745; /* 녹색 */
+    border-color: #1e7e34;
+    color: white;
+}
+.gantt-step.is-active .gantt-step-label {
+    color: #28a745;
+    font-weight: 600;
+}
+
+/* 단계 사이 연결선 */
+.gantt-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 20px; /* 아이콘 중앙 */
+    left: 50%;
+    width: 100%;
+    height: 3px;
+    background-color: #e0e0e0;
+    transform: translateY(-50%);
+    z-index: -1;
+}
+/* 활성 단계의 연결선 */
+.gantt-step.is-active:not(:last-child)::after {
+    background-color: #28a745;
+}
+
+
+/* --- 7.2. 하단 테이블 (Table) --- */
+.gantt-details-table-container {
+    overflow-y: auto;
+    padding: 1rem 0;
+}
+.gantt-details-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.gantt-details-table th,
+.gantt-details-table td {
+    padding: 1rem 1.5rem;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.95rem;
+}
+.gantt-details-table th {
+    background-color: #fcfcfc;
+    font-weight: 600;
+    color: #555;
+}
+.gantt-details-table td:nth-child(1) { /* 날짜/시간 */
+    font-weight: 600;
+    white-space: pre; /* 줄바꿈 방지 */
+}
+.gantt-details-table td:nth-child(3) { /* 상태 */
+    font-weight: 600;
+    color: #007bff;
+}

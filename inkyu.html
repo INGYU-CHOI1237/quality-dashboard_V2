@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inkyu Choi - Private(2025)</title>
+    <link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="styles/inkyu.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+</head>
+
+<body>
+    <header class="main-header">
+        <img src="mersen_logo.png" alt="Mersen Logo" class="header-logo">
+        <h1>Inkyu Choi - Private(2025)</h1>
+        <div class="header-menu">
+            <span class="menu-toggle">Menu ▼</span>
+            <div class="menu-content">
+                <a href="index.html">Quality Dashboard</a>
+                <a href="inkyu.html">Inkyu Choi</a>
+                <a href="status.html">Status</a>
+            </div>
+        </div>
+    </header>
+
+    <div id="inkyu-choi-page" class="dashboard-body" style="flex-direction: column;">
+
+        <div class="grid-row">
+
+            <div class="main-column">
+
+                <div class="category-container">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #a56eff; margin-bottom: 1.5rem;">
+                        <h2 style="margin: 0 0 0.5rem 0; padding: 0; border: none;">AMAT FAI CMM 프로그램 작성 현황</h2>
+                        <button id="open-amat-modal-btn" class="btn btn-toggle" style="margin-bottom: 0.5rem;">데이터
+                            관리</button>
+                    </div>
+                    <div class="sub-section">
+                        <div class="card">
+                            <div class="chart-container" style="min-height: 300px;"><canvas id="amatFaiChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="main-column">
+
+                <div class="category-container">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #a56eff; margin-bottom: 1.5rem;">
+                        <h2 style="margin: 0 0 0.5rem 0; padding: 0; border: none;">세팅품 검사이력</h2>
+                        <button id="open-setting-modal-btn" class="btn btn-toggle" style="margin-bottom: 0.5rem;">데이터
+                            관리</button>
+                    </div>
+                    <div class="sub-section">
+                        <div class="card">
+                            <div class="chart-container" style="min-height: 300px;"><canvas
+                                    id="settingInspectionChart"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="grid-row">
+            <div class="full-width-column">
+                <div class="category-container">
+                    <h2>제안</h2>
+                    <div class="sub-section">
+                        <div class="proposal-controls">
+                            <button id="add-proposal-btn" class="btn btn-add">제안 추가 +</button>
+
+                            <button id="save-proposals-btn" class="btn btn-save">제안 일괄 저장</button>
+                        </div>
+                        <div id="proposal-list">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-row">
+            <div class="full-width-column">
+                <div class="category-container">
+
+                    <div class="gantt-section-header" style="border-bottom: none; justify-content: flex-end;">
+                        <div class="proposal-controls">
+                            <button id="open-gantt-modal-btn" class="btn btn-toggle">프로젝트 관리</button>
+                        </div>
+                    </div>
+
+                    <div class="sub-section">
+                        <div id="gantt-chart-container" class="gantt-chart-wrapper">
+                            <p>Gantt 차트 로딩 중...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="gantt-modal-overlay" class="modal-overlay">
+        <div class="modal-content gantt-modal-content">
+            <h3>자동화 프로젝트 관리</h3>
+
+            <div id="gantt-edit-form" class="gantt-form-container">
+                <div class="gantt-form-controls">
+                    <button id="add-gantt-project-btn" class="btn btn-add">프로젝트 추가 +</button>
+                </div>
+            </div>
+
+            <div class="gantt-modal-controls">
+                <button id="save-gantt-btn" class="modal-button">저장 후 닫기</button>
+                <button id="close-gantt-modal-btn" class="modal-button-close">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="gantt-details-modal-overlay" class="modal-overlay">
+        <div class="modal-content gantt-details-modal-content">
+            <h3 id="gantt-details-title">프로젝트 진행 현황</h3>
+
+            <div id="gantt-details-steps" class="gantt-steps-container">
+            </div>
+
+            <div id="gantt-details-table" class="gantt-details-table-container">
+            </div>
+
+            <div class="gantt-modal-controls">
+                <button id="close-gantt-details-btn" class="modal-button-close">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="amat-modal-overlay" class="modal-overlay">
+        <div class="modal-content gantt-modal-content" style="max-width: 600px;">
+            <h3>AMAT FAI 현황 관리</h3>
+            <div id="amat-edit-form" class="gantt-form-container">
+            </div>
+            <div class="gantt-modal-controls">
+                <button id="save-amat-btn" class="modal-button">저장 후 닫기</button>
+                <button id="close-amat-modal-btn" class="modal-button-close">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="setting-modal-overlay" class="modal-overlay">
+        <div class="modal-content gantt-modal-content" style="max-width: 600px;">
+            <h3>세팅품 검사이력 관리</h3>
+            <div id="setting-edit-form" class="gantt-form-container">
+            </div>
+            <div class="gantt-modal-controls">
+                <button id="save-setting-btn" class="modal-button">저장 후 닫기</button>
+                <button id="close-setting-modal-btn" class="modal-button-close">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.write('<script src="js/inkyu.js?v=' + Date.now() + '"><\/script>');
+    </script>
+
+</body>
+
+</html>
