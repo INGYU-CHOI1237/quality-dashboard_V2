@@ -119,12 +119,18 @@ const Status = () => {
                                 const value = mode === 'count' ? group.count : group.totalQty;
                                 const labelUnit = mode === 'count' ? '건' : '개';
                                 const themeColor = mode === 'count' ? '#4C7080' : '#F15A22';
-                                const size = 120 + (value / maxValue) * 120;
+
+                                // Safety check for size
+                                let calculatedSize = 120 + (value / maxValue) * 120;
+                                if (!isFinite(calculatedSize) || isNaN(calculatedSize)) {
+                                    calculatedSize = 120;
+                                }
+                                const size = calculatedSize;
 
                                 return (
                                     <div
                                         key={`${group.customer}-${mode}`}
-                                        className="bubble"
+                                        className="status-bubble-circle"
                                         style={{
                                             width: `${size}px`,
                                             height: `${size}px`,
@@ -132,7 +138,15 @@ const Status = () => {
                                             borderColor: themeColor,
                                             color: 'white',
                                             animation: `fadeIn 0.5s ease ${index * 0.05}s forwards`,
-                                            opacity: 0 // Start invisible for animation
+                                            opacity: 0, // Start invisible for animation
+                                            // Inline fallbacks
+                                            borderRadius: '50%',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            margin: '10px',
+                                            border: '2px solid #ccc'
                                         }}
                                     >
                                         <div className="bubble-text" style={{ fontSize: '1.4rem' }}>{group.customer}</div>
@@ -141,6 +155,18 @@ const Status = () => {
                                 );
                             })}
                             <style>{`
+                                .status-bubble-circle {
+                                    border-radius: 50% !important;
+                                    display: flex !important;
+                                    flex-direction: column !important;
+                                    justify-content: center !important;
+                                    align-items: center !important;
+                                    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                                    transition: transform 0.2s;
+                                }
+                                .status-bubble-circle:hover {
+                                    transform: scale(1.05);
+                                }
                                 @keyframes fadeIn {
                                     to { opacity: 1; transform: translateY(0); }
                                     from { opacity: 0; transform: translateY(10px); }

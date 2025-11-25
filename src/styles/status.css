@@ -102,22 +102,6 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-    gap: 20px;
-    height: 100%;
-}
-
-/* 개별 버블 스타일 */
-.bubble {
-    border-radius: 50%;
-    background-color: white;
-    /* JS에서 색상을 동적으로 제어하므로 기본값은 중립적으로 설정 */
-    border: 2px solid #ccc;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     font-weight: bold;
     font-size: 0.8rem;
     color: inherit;
