@@ -16,20 +16,13 @@
     display: flex;
     flex-direction: column;
 }
+
 .card-row {
-    flex-grow: 1; /* 카드 행도 같이 늘어나도록 설정 */
+    flex-grow: 1;
+    /* 카드 행도 같이 늘어나도록 설정 */
 }
 
 /* === 2. 차트 제목/크기 === */
-.chart-title {
-    margin-bottom: 1rem;
-}
-.title-blue {
-    color: #4C7080; /* ✨ [수정] 새 파란색 */
-}
-.title-orange {
-    color: #F15A22; /* ✨ [수정] 새 주황색 */
-}
 
 .tall-chart {
     min-height: 240px;

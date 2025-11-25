@@ -163,3 +163,21 @@
     background-color: #fff9c4 !important;
     /* 연한 노란색 */
 }
+
+/* 14일 초과 시 빨간색 배경 */
+.status-row-danger {
+    background-color: #ffcdd2 !important;
+    /* 연한 빨간색 */
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+}
